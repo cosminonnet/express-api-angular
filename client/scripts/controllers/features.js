@@ -7,10 +7,7 @@ angular.module('expressApiAngularApp')
                 abstract: true,
                 url: "/features",
                 templateUrl: "views/features.html",
-                controller: 'FeaturesCtrl',
-                data: {
-                    breadcrumbClass: ''
-                }
+                controller: 'FeaturesCtrl'
             })
             .state('features.list', {
                 url: "",
@@ -25,9 +22,6 @@ angular.module('expressApiAngularApp')
                     'message@features': {
                         template: 'Proposing A New Feature'
                     }
-                },
-                data: {
-                    breadcrumbClass: 'create-feature'
                 }
             })
             .state('features.list.detail', {
@@ -40,9 +34,6 @@ angular.module('expressApiAngularApp')
                     'message@features': {
                         template: 'Viewing The Selected Feature'
                     }
-                },
-                data: {
-                    breadcrumbClass: 'view-feature'
                 }
             })
             .state('features.list.edit', {
@@ -55,19 +46,11 @@ angular.module('expressApiAngularApp')
                     'message@features': {
                         template: 'Editing The Selected Feature'
                     }
-                },
-                data: {
-                    breadcrumbClass: 'edit-feature'
                 }
             });
     }])
     .controller('FeaturesCtrl', ['$rootScope', '$scope', '$state', '_', 'Feature', function ($rootScope, $scope, $state, _, Feature) {
         $scope.features = Feature.query();
-
-        $scope.breadcrumbClass = $state.$current.data.breadcrumbClass;
-        $rootScope.$on('$stateChangeStart', function (event, toState) {
-            $scope.breadcrumbClass = toState.data.breadcrumbClass;
-        });
 
         $scope.deleteAllFeatures = function () {
             _.remove($scope.features, function (feature) {
