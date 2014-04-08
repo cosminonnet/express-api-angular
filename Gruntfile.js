@@ -338,7 +338,7 @@ module.exports = function (grunt) {
     // Test settings
     karma: {
       unit: {
-        configFile: 'karma.conf.js',
+        configFile: '<%= yeoman.test %>/karma.conf.js',
         singleRun: true
       }
     }
