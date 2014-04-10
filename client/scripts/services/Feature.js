@@ -2,7 +2,7 @@
 
 angular.module('expressApiAngularApp')
     .service('Feature', ['$resource', function Feature($resource) {
-        return $resource('/api/feature/:featureId', {featureId: '@id'}, {
+        return $resource('/api/feature/:featureId', {featureId: '@_id'}, {
             'get': {method: 'GET'},
             'query': {method: 'GET', isArray: true},
             'save': {method: 'POST'},

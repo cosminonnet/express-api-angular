@@ -61,21 +61,21 @@ angular.module('expressApiAngularApp')
         };
 
         $scope.save = function () {
-            if (_.isUndefined(this.feature.id)) {
+            if (_.isUndefined(this.feature._id)) {
                 new Feature(this.feature)
                     .$save(function (feature) {
                         $scope.features.push(feature);
-                        $state.transitionTo('features.list.detail', {featureId: feature.id});
+                        $state.transitionTo('features.list.detail', {featureId: feature._id});
                     });
             } else {
                 this.feature.$update();
-                $state.transitionTo('features.list.detail', {featureId: this.feature.id});
+                $state.transitionTo('features.list.detail', {featureId: this.feature._id});
             }
         };
 
         $scope.delete = function () {
             this.feature.$delete(function (feature) {
-                _.remove($scope.features, {id: feature.id});
+                _.remove($scope.features, {_id: feature._id});
                 $state.go('features.list');
             });
         };
@@ -85,6 +85,6 @@ angular.module('expressApiAngularApp')
         // Feature.query() returns an array containing a promise, so in order to use the values in the array, the promise
         // must be resolved (and calling .then(<f>) on an already resolved promise immediately runs the function <f>).
         $scope.features.$promise.then(function () {
-            $scope.feature = _.findWhere($scope.features, {id: $stateParams.featureId});
+            $scope.feature = _.findWhere($scope.features, {_id: $stateParams.featureId});
         });
     }]);

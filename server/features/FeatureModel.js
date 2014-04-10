@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 /**
- * Feature Schema.
+ * Feature Schema
  */
 var FeatureSchema = new Schema({
 
