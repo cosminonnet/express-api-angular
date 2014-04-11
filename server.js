@@ -10,7 +10,7 @@ var mongoose = require('mongoose');
 /**
  * Initializing system variables.
  */
-var config = require('./server/config/database');
+var config = require('./server/configs/Database');
 mongoose.connect(config.url);
 
 /**
@@ -37,8 +37,8 @@ if ('development' == app.get('env')) {
 /**
  * Initializing models and routes.
  */
-require('./server/features/FeatureModel');
-require('./server/features/FeatureRoutes')(app);
+require('./server/modules/feature/FeatureModel');
+require('./server/modules/feature/FeatureRoutes')(app);
 
 /**
  * Creating the server.
