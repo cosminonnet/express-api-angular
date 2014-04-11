@@ -38,4 +38,11 @@ var FeatureSchema = new Schema({
 
 });
 
+/**
+ * Statics
+ */
+FeatureSchema.statics.load = function(id, cb) {
+    this.findOne({ _id: id }).exec(cb);
+};
+
 mongoose.model('Feature', FeatureSchema);
