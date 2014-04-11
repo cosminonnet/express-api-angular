@@ -8,12 +8,13 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    Feature = mongoose.model('Feature');
+    Feature = mongoose.model('Feature'),
+    _ = require('lodash');
 
 module.exports = {
 
     /**
-     * Load the Feature specified by Id.
+     * Load.
      */
     load: function(req, res, next, id) {
         Feature.load(id, function(err, feature) {
@@ -30,7 +31,7 @@ module.exports = {
     },
 
     /**
-     * List of Features.
+     * Find.
      */
     find: function(req, res) {
         var feature = req.feature;
@@ -46,7 +47,7 @@ module.exports = {
     },
 
     /**
-     * Create a Feature.
+     * Create.
      */
     create: function(req, res) {
         var feature = new Feature(req.body);
@@ -58,19 +59,36 @@ module.exports = {
     },
 
     /**
-     * Update a Feature.
+     * Update.
      */
     update: function(req, res) {
-        // TODO
-        res.send(200);
+        var feature = _.extend(req.feature, req.body);
+
+        feature.save(function(err) {
+            if (err) return res.send(500);
+            return res.json(feature);
+        });
     },
 
     /**
-     * Destroy a Feature.
+     * Destroy.
      */
     destroy: function(req, res) {
-        // TODO
-        res.send(200);
+        var feature = req.feature;
+
+        if (feature) {
+            feature.remove(function(err) {
+                if (err) return res.send(500);
+                return res.json(feature);
+            });
+        } else {
+            Feature.find().remove(function (err, removedCount) {
+                if (err) return res.send(500);
+                return res.json({
+                    count : removedCount
+                });
+            });
+        }
     }
 
 }

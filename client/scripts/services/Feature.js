@@ -7,8 +7,8 @@ angular.module('expressApiAngularApp')
             'query': {method: 'GET', isArray: true},
             'save': {method: 'POST'},
             'update': {method: 'PUT'},
-            'remove': {method: 'DELETE'},
-            'delete': {method: 'DELETE'}
+            'delete': {method: 'DELETE'},
+            'deleteAll': {method: 'DELETE', params: {featureId: null}}
         });
     }]);
 

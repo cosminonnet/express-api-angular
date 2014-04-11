@@ -53,11 +53,10 @@ angular.module('expressApiAngularApp')
         $scope.features = Feature.query();
 
         $scope.deleteAllFeatures = function () {
-            _.remove($scope.features, function (feature) {
-                feature.$delete();
-                return true;
+            Feature.deleteAll(function () {
+                _.remove($scope.features);
+                $state.go('features.list');
             });
-            $state.go('features.list');
         };
 
         $scope.save = function () {
